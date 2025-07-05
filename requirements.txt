@@ -1,8 +1,12 @@
 pandas
 numpy
+scikit-learn
+joblib
 matplotlib
 seaborn
-scikit-learn
+fastapi
+uvicorn
+apache-airflow==2.9.0
 mlflow
-flask
-joblib
+pydantic
+pytest
