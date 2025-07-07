@@ -1,0 +1,14 @@
+artifact_uri: file:///C:/Users/Deepanshu%20Tewatia/Churn%20Rate%20Prediction/Customer-Churn-Prediction/mlruns/872131725918270870/4473534b912d446ebe3df18a09267211/artifacts
+end_time: 1751907414699
+entry_point_name: ''
+experiment_id: '872131725918270870'
+lifecycle_stage: active
+run_id: 4473534b912d446ebe3df18a09267211
+run_name: preprocess_data
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1751907414514
+status: 3
+tags: []
+user_id: Deepanshu Tewatia

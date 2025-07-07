@@ -1,0 +1,10 @@
+artifact_location: file:///C:/Users/Deepanshu%20Tewatia/Churn%20Rate%20Prediction/Customer-Churn-Prediction/mlruns/610966866305364689/models/m-5a9f55ba5c4e4dac8c4fddaa529de1f2/artifacts
+creation_timestamp: 1751907660119
+experiment_id: '610966866305364689'
+last_updated_timestamp: 1751907667917
+model_id: m-5a9f55ba5c4e4dac8c4fddaa529de1f2
+model_type: null
+name: random_forest_model
+source_run_id: 23d4a5bf82ee4050bad6dc4cef62e3be
+status: 2
+status_message: null
