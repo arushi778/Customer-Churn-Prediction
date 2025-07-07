@@ -1,10 +1,17 @@
+import sys
+sys.path.append('/opt/airflow')  
 from airflow import DAG
 from airflow.operators.python import PythonOperator
 from datetime import datetime
+from src.data.preprocess import preprocess
+from src.models.train import train
+from src.models.evaluate import evaluate
+from src.models.predict import predict
+
 
 default_args = {
     'owner': 'airflow',
-    'start_date': datetime(2024, 1, 1),
+    'start_date': datetime(2025, 1, 1),
     'retries': 1,
 }
 
@@ -18,39 +25,27 @@ with DAG(
 ) as dag:
 
     # Step 1: Preprocessing
-    def preprocess():
-        print("Running preprocessing step...")
-
     preprocess_task = PythonOperator(
         task_id='preprocess_data',
         python_callable=preprocess
     )
 
     # Step 2: Train model
-    def train():
-        print("Running training step...")
-
     train_task = PythonOperator(
         task_id='train_model',
         python_callable=train
     )
 
     # Step 3: Evaluate model
-    def evaluate():
-        print("Running evaluation step...")
-
     evaluate_task = PythonOperator(
         task_id='evaluate_model',
         python_callable=evaluate
     )
 
     # Step 4: Batch predict
-    def batch_predict():
-        print("Running batch prediction step...")
-
     batch_predict_task = PythonOperator(
         task_id='batch_predict',
-        python_callable=batch_predict
+        python_callable=predict
     )
 
     # Step 5: Notify FastAPI (future; e.g., HTTP request)

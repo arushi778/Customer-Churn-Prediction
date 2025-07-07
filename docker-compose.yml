@@ -20,6 +20,7 @@ services:
     volumes:
       - ./dags:/opt/airflow/dags
       - ./data:/opt/airflow/data
+      - ./src:/opt/airflow/src
     ports:
       - "8080:8080"
     command: webserver
@@ -36,6 +37,7 @@ services:
     volumes:
       - ./dags:/opt/airflow/dags
       - ./data:/opt/airflow/data
+      - ./src:/opt/airflow/src
     command: scheduler
 
   airflow-init:
@@ -50,6 +52,7 @@ services:
     volumes:
       - ./dags:/opt/airflow/dags
       - ./data:/opt/airflow/data
+      - ./src:/opt/airflow/src
     entrypoint: >
       /bin/bash -c "
       airflow db upgrade &&
