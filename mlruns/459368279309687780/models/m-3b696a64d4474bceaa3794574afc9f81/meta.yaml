@@ -1,0 +1,10 @@
+artifact_location: file:///C:/Users/Khushi%27s%20PC/OneDrive/Desktop/MLOPS%20CLASS/Customer-Churn-Prediction/mlruns/459368279309687780/models/m-3b696a64d4474bceaa3794574afc9f81/artifacts
+creation_timestamp: 1752138782793
+experiment_id: '459368279309687780'
+last_updated_timestamp: 1752138788600
+model_id: m-3b696a64d4474bceaa3794574afc9f81
+model_type: null
+name: random_forest_model
+source_run_id: 9d50b3e246f5401588f02bf26e4441e4
+status: 2
+status_message: null

@@ -1,0 +1,6 @@
+artifact_location: file:///C:/Users/Khushi%27s%20PC/OneDrive/Desktop/MLOPS%20CLASS/Customer-Churn-Prediction/mlruns/720718165952726036
+creation_time: 1752138687621
+experiment_id: '720718165952726036'
+last_update_time: 1752138687621
+lifecycle_stage: active
+name: churn_preprocessing

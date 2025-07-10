@@ -1,0 +1,109 @@
+services:
+  postgres:
+    image: postgres:13
+    environment:
+      POSTGRES_USER: airflow
+      POSTGRES_PASSWORD: airflow
+      POSTGRES_DB: airflow
+    volumes:
+      - postgres_db:/var/lib/postgresql/data
+
+  airflow-webserver:
+    build:
+      context: .
+    image: churn-airflow:latest
+    depends_on:
+      - postgres
+    environment:
+      - AIRFLOW__CORE__EXECUTOR=LocalExecutor
+      - AIRFLOW__CORE__SQL_ALCHEMY_CONN=postgresql+psycopg2://airflow:airflow@postgres/airflow
+    volumes:
+      - ./dags:/opt/airflow/dags
+      - ./data:/opt/airflow/data
+      - ./src:/opt/airflow/src
+    ports:
+      - "8080:8080"
+    command: webserver
+
+  airflow-scheduler:
+    build:
+      context: .
+    image: churn-airflow:latest
+    depends_on:
+      - postgres
+    environment:
+      - AIRFLOW__CORE__EXECUTOR=LocalExecutor
+      - AIRFLOW__CORE__SQL_ALCHEMY_CONN=postgresql+psycopg2://airflow:airflow@postgres/airflow
+    volumes:
+      - ./dags:/opt/airflow/dags
+      - ./data:/opt/airflow/data
+      - ./src:/opt/airflow/src
+    command: scheduler
+
+  airflow-init:
+    build:
+      context: .
+    image: churn-airflow:latest
+    depends_on:
+      - postgres
+    environment:
+      - AIRFLOW__CORE__EXECUTOR=LocalExecutor
+      - AIRFLOW__CORE__SQL_ALCHEMY_CONN=postgresql+psycopg2://airflow:airflow@postgres/airflow
+    volumes:
+      - ./dags:/opt/airflow/dags
+      - ./data:/opt/airflow/data
+      - ./src:/opt/airflow/src
+    entrypoint: >
+      /bin/bash -c "
+      airflow db upgrade &&
+      airflow users create --username admin --firstname admin --lastname admin --role Admin --password admin --email admin@example.com
+      "
+
+  fastapi:
+    build:
+      context: .
+    image: churn-fastapi:latest
+    ports:
+      - "8001:8000"
+    volumes:
+      - ./api:/app
+      - ./models:/app/models       
+    depends_on:
+      - prometheus
+
+  mlflow:
+    image: python:3.9-slim
+    container_name: mlflow-server
+    working_dir: /app
+    ports:
+      - "5000:5000"
+    volumes:
+      - ./mlruns:/app/mlruns
+      - ./src:/app/src
+      - ./models:/app/models
+      - ./requirements.txt:/app/requirements.txt
+    command: >
+      /bin/bash -c "
+      pip install --no-cache-dir -r requirements.txt &&
+      mlflow server --backend-store-uri sqlite:///mlflow.db --default-artifact-root /app/mlruns --host 0.0.0.0 --port 5000
+      "
+
+  prometheus:
+    image: prom/prometheus
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./monitoring/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
+
+  grafana:
+    image: grafana/grafana
+    ports:
+      - "3000:3000"
+    volumes:
+      - grafana-storage:/var/lib/grafana
+    depends_on:
+      - prometheus
+
+volumes:
+  postgres_db:
+  grafana-storage:

@@ -1,0 +1,14 @@
+artifact_uri: file:///C:/Users/Khushi%27s%20PC/OneDrive/Desktop/MLOPS%20CLASS/Customer-Churn-Prediction/mlruns/459368279309687780/9d50b3e246f5401588f02bf26e4441e4/artifacts
+end_time: 1752138788689
+entry_point_name: ''
+experiment_id: '459368279309687780'
+lifecycle_stage: active
+run_id: 9d50b3e246f5401588f02bf26e4441e4
+run_name: train_model
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1752138781312
+status: 3
+tags: []
+user_id: Khushi's PC
